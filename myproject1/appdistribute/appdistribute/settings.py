@@ -37,14 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     # shkim
-    'taggit.apps.TaggitAppConfig',
-    'taggit_templatetags2',
-    'widget_tweaks',
     'bookmark.apps.BookmarkConfig',
     'blog.apps.BlogConfig',
-    'photo.apps.PhotoConfig',
+    'polls.apps.PollsConfig',
 ]
 
 MIDDLEWARE = [
@@ -57,7 +53,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'mysite.urls'
+ROOT_URLCONF = 'appdistribute.urls'
 
 TEMPLATES = [
     {
@@ -75,7 +71,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'mysite.wsgi.application'
+WSGI_APPLICATION = 'appdistribute.wsgi.application'
 
 
 # Database
@@ -111,7 +107,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-kr'
 
 # TIME_ZONE = 'UTC'
 TIME_ZONE = 'Asia/Seoul'
@@ -136,10 +132,3 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-TAGGIT_CASE_INSENSITIVE = True
-TAGGIT_LIMIT = 50
-
-DISQUS_SHORTNAME = 'pydjango-web-programming-6663'
-DISQUS_MY_DOMAIN = 'http://192.168.0.199:8000'
-
-LOGIN_REDIRECT_URL = '/'

@@ -1,7 +1,7 @@
-"""mysite URL Configuration
+"""appdistribute URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/2.2/topics/http/urls/
+    https://docs.djangoproject.com/en/3.0/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -15,22 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.conf.urls.static import static
-from django.conf import settings
-from mysite.views import HomeView
-from mysite.views import UserCreateView, UserCreateDoneTV
+
+from appdistribute.views import HomeView
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     # shkim
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('accounts/register/', UserCreateView.as_view(), name='register'),
-    path('accounts/register/done/', UserCreateDoneTV.as_view(), name='register_done'),
-
     path('', HomeView.as_view(), name='home'),
     path('bookmark/', include('bookmark.urls')),
     path('blog/', include('blog.urls')),
-    path('photo/', include('photo.urls')),
-
-] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+    path('polls/', include('polls.urls')),
+]
 

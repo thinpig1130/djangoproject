@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}bookmark_list.html{% endblock %}
+
+{% block content %}
+
+    <h1>Bookmark List</h1>
+    <br>
+
+    <ul class="list-group">
+        {% for bookmark in object_list %}
+        <a class="list-group-item" href="{{ bookmark.url }}">{{ bookmark }} &nbsp;&nbsp;&nbsp;( {{ bookmark.url }} )</a>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
+
