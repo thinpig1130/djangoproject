@@ -3,14 +3,45 @@
 {% block title %}post_all.html{% endblock %}
 
 {% block content %}
-
-    <h1>Blog List</h1>
-    <br>
+    {% if day %}
+        <h3> Posts Archives for {{ day|date:"Y년 n월 d일" }}</h3>
+        <div  class="alert alert-light" role="alert" align="right">
+            <a role="button" class="btn btn-secondary" href="{% url 'blog:post_archive' %}">Archives Home</a>
+        </div>
+    {% elif month %}
+        <h3> Archives for {{ month|date:"Y년 n월" }}</h3>
+        <div  class="alert alert-light" role="alert" align="right">
+        {% for date in date_list %}
+             <a href="{% url 'blog:post_day_archive' date|date:'Y' date|date:'b' date|date:'d' %}"
+            role="button" class="btn btn-secondary">
+            {{ date|date:"d일" }}</a>
+        {% endfor %}
+        </div>
+    {% elif year %}
+        <h3> Posts Archives for {{ year|date:"Y" }}</h3>
+        <div  class="alert alert-light" role="alert" align="right">
+        {% for date in date_list %}
+            <a href="{% url 'blog:post_month_archive' date|date:'Y' date|date:'b' %}"
+            role="button" class="btn btn-secondary">
+            {{ date|date:"n월" }}</a>
+         {% endfor %}
+        </div>
+        <br>
+    {% else %}
+        <h3> Posts</h3>
+        <div  class="alert alert-light" role="alert" align="right">
+        {% for date in date_list %}
+            <a href="{% url 'blog:post_year_archive' date|date:'Y' %}"
+            role="button" class="btn btn-secondary">
+            {{ date|date:"Y" }}년</a>
+        {% endfor %}
+        </div>
+    {% endif %}
 
     {% for post in posts %}
         <div class="alert alert-dark" role="alert">
             <h4><a href='{{ post.get_absolute_url }}'>{{ post.title }}</a></h4>
-            {{ post.modify_date|date:"N d, Y" }}
+            <span> {{ post.modify_date|date:"N d, Y" }} </span>
             <p align="right">{{ post.description }}</p>
         </div>
     {% endfor %}

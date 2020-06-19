@@ -22,12 +22,11 @@ urlpatterns = [
 
     # Example: /blog/archive/2019/nov/
     path('archive/<int:year>/<str:month>/', views.PostMAV.as_view(), name='post_month_archive'),
+    #re_path(r'^archive/<int:year>/(?P<month>)/$', views.PostMAV.as_view(), name='post_month_archive'),
 
     # Example: /blog/archive/2019/nov/10/
     path('archive/<int:year>/<str:month>/<int:day>/', views.PostDAV.as_view(), name='post_day_archive'),
-
-    # Example: /blog/archive/today/
-    path('archive/today/', views.PostTAV.as_view(), name='post_today_archive'),
+    #re_path(r'^post/(?P<year>)/(?P<month>[-\w]+) /$', views.PostDAV.as_view(), name='post_day_archive')
 
 ]
 
