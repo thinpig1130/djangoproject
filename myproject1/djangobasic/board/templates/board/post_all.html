@@ -3,27 +3,57 @@
 {% block title %} Board List {% endblock %}
 
 {% block main %}
-<main class="page-section portfolio" style="margin-top:50px">
-{% for post in posts %}
-    <h3><a href='{{ post.get_absolute_url }}'>{{ post.title }}</a></h3>
-    {{ post.modify_dt|date:"N d, Y" }}
-    <p>{{ post.description }}</p>
-{% endfor %}
+<main class="page-section" style="margin-top:40px">
+    <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Board List</h2>
+        <div class="divider-custom">
+                    <div class="divider-custom-line"></div>
+                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                    <div class="divider-custom-line"></div>
+        </div>
 
-<br>
-<div>
-    <span>
-        {% if page_obj.has_previous %}
-            <a href="?page={{ page_obj.previous_page_number }}">PreviousPage</a>
-        {% endif %}
+    <div class="col-lg-10 mx-auto">
+        <div align="right">
+               <a class="btn btn-outline-primary" style="margin-bottom:10px" href="{% url 'board:add' %}">글쓰기</a>
+        </div>
 
-        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+      <table class="table table-primary table-hover table-borderless ">
+          <thead>
+            <tr class="bg-primary" align="center">
+              <th scope="col">#</th>
+              <th scope="col">제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목</th>
+              <th scope="col">작성자</th>
+              <th scope="col">등록일</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for post in posts %}
+                <tr>
+                  <td align="center"><strong>{{ post.id }}</strong></td>
+                  <td><a href='{{ post.get_absolute_url }}'>{{ post.title }}</a></td>
+                  <td> {{ post.owner }} </td>
+                  <td align="center">{{ post.modify_dt|date:"Y-n-d" }}</td>
+                </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <div class="divider-custom">
+            <nav aria-label="Page navigation example">
+                  <ul class="pagination">
+                    {% for n in page_obj.paginator.page_range %}
+                      {% if n == page_obj.number %}
+                      <li class="page-item active" >
+                      {% else %}
+                      <li class="page-item">
+                      {% endif%}
+                    <a class="page-link" href="?page={{n}}">{{n}}</a></li>
+                    {% endfor %}
+                  </ul>
+            </nav>
+        </div>
+    </div>
 
-        {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">NextPage</a>
-        {% endif %}
-    </span>
 
-</div>
+
+
 </main>
 {% endblock %}

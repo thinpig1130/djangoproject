@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load widget_tweaks %}
 <html lang="ko">
     <head>
         <meta charset="utf-8" />
@@ -30,7 +31,25 @@
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="{% url 'board:index' %}">Board</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#about">About</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">login</a></li>
+                        <li class="nav-item dropdown">
+                         {% if user.is_active %}
+                            <a class="nav-link dropdown-toggle" href="#" id="DropdownMenuLinkA" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {% firstof user.get_short_name user.get_username %}
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="DropdownMenuLinkA">
+                              <a class="dropdown-item" href="{% url 'logout' %}">로그아웃</a>
+                              <a class="dropdown-item" href="{% url 'password_change' %}">비밀번호변경</a>
+                            </div>
+                         {% else %}
+                            <a class="nav-link dropdown-toggle" href="#" id="DropdownMenuLinkB" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Anonymous
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="DropdownMenuLinkB">
+                              <a class="dropdown-item" href="{% url 'login' %}" >로그인</a>
+                              <a class="dropdown-item" href="{% url 'register' %}">회원가입</a>
+                            </div>
+                         {% endif %}
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -78,7 +97,7 @@
         <div class="scroll-to-top d-lg-none position-fixed">
             <a class="js-scroll-trigger d-block text-center text-white rounded" href="#page-top"><i class="fa fa-chevron-up"></i></a>
         </div>
-
+        <br>
         <!-- Bootstrap core JS-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>

@@ -3,29 +3,33 @@
 {% block title %} HOME {% endblock %}
 {% block main %}
 <main class="page-section portfolio" style="margin-top:50px">
-<h2>{{ object.title }}</h2>
+    <div class="jumbotron col-lg-10 mx-auto">
+      <p class="lead text-right"> {{ object.description }} &#9;&nbsp; &#9;&nbsp;&#9;&nbsp;</p>
+      <h1 class="display-4">{{ object.title }}</h1>
+      <p class="text-right">{{ object.modify_dt|date:"Y년 n월 d일" }}</p>
+      <hr class="my-4">
+      <p class="text-right"> {{ object.content|linebreaks }}</p>
+      <p>
+        {% if object.get_previous %}
+        <a href="{{ object.get_previous.get_absolute_url }}" title="View previous post">
+            &laquo;-- {{ object.get_previous }}
+        </a>
+        {% endif %}
 
-<p>
-    {% if object.get_previous %}
-    <a href="{{ object.get_previous.get_absolute_url }}" title="View previous post">
-        &laquo;-- {{ object.get_previous }}
-    </a>
-    {% endif %}
-
-    {% if object.get_next %}
-    | <a href="{{ object.get_next.get_absolute_url }}" title="View next post">
-    {{ object.get_next }} --&raquo;
-    </a>
-    {% endif %}
-</p>
-
-<p>{{ object.modify_dt|date:"j F Y" }}</p>
-<br>
-
-<div>
-    {{ object.content|linebreaks }}
-</div>
-    </main>
-
+        {% if object.get_next %}
+        | <a href="{{ object.get_next.get_absolute_url }}" title="View next post">
+        {{ object.get_next }} --&raquo;
+        </a>
+        {% endif %}
+      </p>
+        <div align="right">
+            {% if object.owner == request.user %}
+               <a class="btn btn-outline-primary" href="{% url 'board:update' object.id %}">수정</a>
+               <a class="btn btn-outline-primary" href="{% url 'board:delete' object.id %}">삭제</a>
+            {% endif %}
+               <a class="btn btn-outline-primary" href="{% url 'board:index' %}" role="button">글목록</a>
+        </div>
+    </div>
+</main>
 {% endblock %}
 
